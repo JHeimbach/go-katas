@@ -36,10 +36,6 @@ func TestIsValidIp(t *testing.T) {
 			want: false,
 		},
 		{
-			in:   "123.045.067.089",
-			want: false,
-		},
-		{
 			in:   "127.1.1.0",
 			want: true,
 		},
