@@ -2,13 +2,13 @@ package kata
 
 import "strings"
 
-func DNAStrand(dna string) (result string) {
-	dna = strings.ToUpper(dna)
+var dnaReplacer = strings.NewReplacer(
+	"A", "T",
+	"T", "A",
+	"C", "G",
+	"G", "C",
+)
 
-	complements := map[string]string{"A": "T", "T": "A", "C": "G", "G": "C"}
-
-	for _, char := range dna {
-		result += complements[string(char)]
-	}
-	return
+func DNAStrand(dna string) string {
+	return dnaReplacer.Replace(dna)
 }
