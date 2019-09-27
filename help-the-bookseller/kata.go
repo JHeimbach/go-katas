@@ -7,24 +7,20 @@ import (
 )
 
 func StockList(listArt []string, listCat []string) string {
-	if len(listArt) == 0 {
+	if len(listArt) == 0 || len(listCat) == 0 {
 		return ""
 	}
-	inventoryMap := make(map[string]int)
 
-	for _, letter := range listCat {
-		inventoryMap[letter] = 0
-	}
+	inventoryMap := make(map[string]int)
 
 	for _, article := range listArt {
 		parts := strings.Split(article, " ")
-		firstLetter := []rune(parts[0])[0]
+		firstLetter := parts[0][:1]
 		num, _ := strconv.Atoi(parts[1])
-
-		inventoryMap[string(firstLetter)] += num
+		inventoryMap[firstLetter] += num
 	}
-	var outputStrings []string
 
+	var outputStrings []string
 	for _, letter := range listCat {
 		outputStrings = append(outputStrings, fmt.Sprintf("(%s : %d)", letter, inventoryMap[letter]))
 	}
