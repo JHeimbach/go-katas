@@ -2,40 +2,29 @@ package kata
 
 import (
 	"strings"
+	"unicode"
 )
 
 func PlayPass(s string, n int) string {
 	s = strings.ToUpper(s)
+
 	returnString := ""
-	for i, letter := range []rune(s) {
-		if letter >= 65 && letter <= 90 {
-			letter = letter + rune(n)
+	for i, letter := range s {
 
-			if letter > 90 {
-				letter = (letter % 90) + 64
-			}
-
-			if (i+1)%2 == 0 {
-				letter += 32
-			}
+		if unicode.IsLetter(letter) {
+			letter = 'A' + (letter-'A'+int32(n))%26
 		}
 
-		if letter >= 48 && letter <= 57 {
-			letter = (9 - (letter - 48)) + 48
+		if unicode.IsDigit(letter) {
+			letter = '9' - letter + '0'
 		}
 
-		returnString += string(letter)
+		if i%2 == 1 && unicode.IsLetter(letter) {
+			letter = unicode.ToLower(letter)
+		}
+
+		returnString = string(letter) + returnString
 	}
 
-	return reverse(returnString)
-}
-
-func reverse(s string) string {
-	n := len(s)
-	runes := make([]rune, n)
-	for _, r := range s {
-		n--
-		runes[n] = r
-	}
-	return string(runes[:])
+	return returnString
 }
