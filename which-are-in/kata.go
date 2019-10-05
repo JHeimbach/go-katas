@@ -6,7 +6,7 @@ import (
 )
 
 func InArray(array1 []string, array2 []string) []string {
-	results := []string{}
+	results := make([]string, 0)
 
 	for _, value := range array1 {
 		for _, test := range array2 {
