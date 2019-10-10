@@ -5,13 +5,15 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 func main() {
 	if len(os.Args) < 2 {
 		log.Fatalln("no name given")
 	}
-	var name = os.Args[1]
+
+	var name = strings.Join(os.Args[1:], "-")
 
 	folderPath := filepath.Join(".", name)
 	err := os.Mkdir(folderPath, os.ModePerm)
