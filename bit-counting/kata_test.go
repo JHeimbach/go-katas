@@ -31,11 +31,22 @@ func TestCountBits(t *testing.T) {
 			want:  2,
 		},
 	}
-	for _, tt := range tests {
-		t.Run(fmt.Sprintf("CountBits(%d) returns %d", tt.input, tt.want), func(t *testing.T) {
-			if got := CountBits(tt.input); got != tt.want {
-				t.Errorf("CountBits() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	t.Run("CountBits with string conversion", func(t *testing.T) {
+		for _, tt := range tests {
+			t.Run(fmt.Sprintf("CountBits(%d) returns %d", tt.input, tt.want), func(t *testing.T) {
+				if got := CountBits(tt.input); got != tt.want {
+					t.Errorf("CountBits() = %v, want %v", got, tt.want)
+				}
+			})
+		}
+	})
+	t.Run("CountBits with math/bits", func(t *testing.T) {
+		for _, tt := range tests {
+			t.Run(fmt.Sprintf("CountBitsSimpler(%d) returns %d", tt.input, tt.want), func(t *testing.T) {
+				if got := CountBitsSimpler(tt.input); got != tt.want {
+					t.Errorf("CountBitsSimpler() = %v, want %v", got, tt.want)
+				}
+			})
+		}
+	})
 }
